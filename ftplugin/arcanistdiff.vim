@@ -34,3 +34,4 @@ endfunction
 
 call s:InsertEmptyPlan()
 call s:InsertIssueId()
+call cursor(1, 1)
