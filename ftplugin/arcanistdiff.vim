@@ -30,8 +30,14 @@ function! s:InsertIssueId() abort
     if search('^JIRA Issues:', 'e')
         execute 'normal A' . issue_id
     endif
+    return issue_id
 endfunction
 
 call s:InsertEmptyPlan()
-call s:InsertIssueId()
+let b:issue_id = s:InsertIssueId()
 call cursor(1, 1)
+if !empty(b:issue_id)
+    " Start commit message with jira issue and project name
+    let b:project_name = fnamemodify(execute('pwd'), ':t')
+    execute 'normal i' . b:issue_id . ' (' . b:project_name . ') '
+endif
